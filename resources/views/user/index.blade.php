@@ -8,7 +8,7 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="px-6 pt-6 mb-5 md:w-1/2 2xl:w-1/3">
+                <div class="px-6 pt-6 mb-5 md:w-1/2 2xl:w-1/3 py-4">
                     @if (request('search'))
                         <h2 class="pb-3 text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
                             Search results for : {{ request('search') }}
@@ -88,7 +88,35 @@
                                     </td>
                                     <td class="px-6 py-4">
                                         <div class="flex space-x-3">
-                                            {{-- Action here --}}
+                                            @if ($user->is_admin)
+                                                <form action="{{ route('user.removeadmin', $user) }}" method="Post">
+                                                    @csrf
+                                                    @method('PATCH')
+                                                    <button type="submit"
+                                                        class="text-blue-500 dark:text-blue-400 whitespace-nowrap">
+                                                        Remove Admin
+                                                    </button>
+                                                </form>
+                                            @else
+                                                <form action="{{ route('user.makeadmin', $user) }}" method="Post">
+                                                    @csrf
+                                                    @method('PATCH')
+                                                    <button type="submit"
+                                                        class="px-2 text-red-600 dark:text-red-400 whitespace-nowrap">
+                                                        Make Admin
+                                                    </button>
+                                                </form>
+                                            @endif
+
+                                            <form action="{{ route('user.destroy', $user) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit"
+                                                    class="px-2 text-red-600 dark:text-red-400 whitespace-nowrap">
+                                                    Delete
+                                                </button>
+                                            </form>
+
                                         </div>
                                     </td>
                                 </tr>
