@@ -4,9 +4,9 @@ namespace Database\Seeders;
 
 use App\Models\Todo;
 use App\Models\User;
+use App\Models\Category;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -16,13 +16,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
-
         User::factory()->create([
             'name' => 'Admin',
             'email' => 'admin@admin.com',
@@ -33,6 +26,11 @@ class DatabaseSeeder extends Seeder
         ]);
 
         User::factory(100)->create();
+
+        Category::factory(10)->create([
+            'user_id' => 1,
+        ]);
+
         Todo::factory(500)->create();
     }
 }

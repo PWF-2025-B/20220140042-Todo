@@ -39,6 +39,7 @@
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
                                 <th scope="col" class="px-6 py-3">Title</th>
+                                <th scope="col" class="px-6 py-3">Category</th>
                                 <th scope="col" class="hidden px-6 py-3 md:block">Status</th>
                                 <th scope="col" class="px-6 py-3">Action</th>
                             </tr>
@@ -53,13 +54,19 @@
                                         </a>
                                     </td>
 
+                                    <td class="px-6 py-4 font-medium text-gray-900 dark:text-white">
+                                        {{ $todo->category ? $todo->category->title : 'No Category' }}
+                                    </td>
+
                                     <td class="hidden px-6 py-4 md:block">
                                         @if ($todo->is_done)
-                                            <span class="text-green-600 dark:text-green-400 hover:text-green-900 dark:hover:text-green-200">
+                                            <span
+                                                class="text-green-600 dark:text-green-400 hover:text-green-900 dark:hover:text-green-200">
                                                 Completed
                                             </span>
                                         @else
-                                            <span class="text-blue-500 dark:text-blue-400 hover:text-blue-900 dark:hover:text-blue-200">
+                                            <span
+                                                class="text-blue-500 dark:text-blue-400 hover:text-blue-900 dark:hover:text-blue-200">
                                                 Ongoing
                                             </span>
                                         @endif
@@ -100,7 +107,7 @@
                                 </tr>
                             @empty
                                 <tr class="bg-white dark:bg-gray-800">
-                                    <td colspan="3" class="px-6 py-4 font-medium text-center text-gray-900 dark:text-white">
+                                    <td colspan="4" class="px-6 py-4 font-medium text-center text-gray-900 dark:text-white">
                                         No todos found
                                     </td>
                                 </tr>

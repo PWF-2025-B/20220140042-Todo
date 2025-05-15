@@ -7,38 +7,40 @@
 
     <div class="py-12">
         <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
-        <div class="overflow-hidden bg-white shadow-sm dark:bg-gray-800 sm:rounded-lg">
-            <div class="p-6 text-gray-900 dark:text-gray-100">
-                <form method="post" action="{{ route('todo.store') }}" class="">
-                    @csrf
-                    @method('post')
+            <div class="overflow-hidden bg-white shadow-sm dark:bg-gray-800 sm:rounded-lg">
+                <div class="p-6 text-gray-900 dark:text-gray-100">
+                    <form method="post" action="{{ route('todo.store') }}">
+                        @csrf
+                        @method('post')
 
-                    <div class="mb-6">
-                        <x-input-label for="title" :value="('Title')" />
-                        <x-text-input 
-                            id="title" 
-                            name="title" 
-                            type="text" 
-                            class="block w-full mt-1" 
-                            required 
-                            autofocus 
-                            autocomplete="title" 
-                        />
-                        <x-input-error class="mt-2" :messages="$errors->get('title')" />
-                    </div>
+                        <div class="mb-6">
+                            <x-input-label for="title" :value="__('Title')" />
+                            <x-text-input id="title" name="title" type="text" class="block w-full mt-1" required
+                                autofocus autocomplete="title" />
+                            <x-input-error class="mt-2" :messages="$errors->get('title')" />
+                        </div>
 
-                    <div class="flex items-center gap-4">
-                        <x-primary-button>
-                            {{ __('Save') }}
-                        </x-primary-button>
+    
+                        <div class="mb-6">
+                            <x-input-label for="category_id" :value="__('Category')" />
+                            <x-select name="category_id" class="block w-full mt-1">
+                                <option value="" selected>{{ __('Empty') }}</option>
+                                @foreach ($categories as $category)
+                                    <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>
+                                        {{ $category->title }}
+                                    </option>
+                                @endforeach
+                            </x-select>
+                            <x-input-error class="mt-2" :messages="$errors->get('category_id')" />
+                        </div>
 
-                        <x-link-button href="{{ route('todo.index') }}">
-                            {{ __('Cancel') }}
-                        </x-link-button>
-                    </div>
-                </form>
+                        <div class="flex items-center gap-4">
+                            <x-primary-button>{{ __('Save') }}</x-primary-button>
+                            <x-link-button href="{{ route('todo.index') }}">{{ __('Cancel') }}</x-link-button>
+                        </div>
+                    </form>
+                </div>
             </div>
-        </div>
         </div>
     </div>
 </x-app-layout>
