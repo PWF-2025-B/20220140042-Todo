@@ -115,7 +115,7 @@
                         </tbody>
                     </table>
 
-                    @if ($todosCompleted > 0)
+                    @if ($todoCompleted > 0)
                         <div class="p-6 text-xl text-gray-900 dark:text-gray-100">
                             <form action="{{ route('todo.deletecompleted') }}" method="POST">
                                 @csrf

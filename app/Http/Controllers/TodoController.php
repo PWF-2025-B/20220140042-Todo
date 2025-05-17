@@ -5,12 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\Todo;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 
 class TodoController extends Controller
 {
     public function index()
     {
-        $todos = Todo::with('category')
+        /*$todos = Todo::with('category')
             ->where('user_id', auth()->id())
             ->orderBy('is_done')
             ->orderByDesc('created_at')
@@ -18,7 +20,19 @@ class TodoController extends Controller
 
         $todosCompleted = $todos->where('is_done', true)->count();
 
-        return view('todo.index', compact('todos', 'todosCompleted'));
+        return view('todo.index', compact('todos', 'todosCompleted'));*/
+        $todos = Todo::with('category')
+            ->where('user_id', Auth::id())
+            ->orderBy('is_done', 'asc')
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
+
+        $todoCompleted = Todo::where('user_id', Auth::id())
+            ->where('is_done', true)
+            ->count();
+
+        return view('todo.index', compact('todos', 'todoCompleted'));
+
     }
 
     public function create()
